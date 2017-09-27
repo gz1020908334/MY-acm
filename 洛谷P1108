@@ -1,0 +1,51 @@
+两问都是典型的DP 第一问是最熟悉的最长下降子序列
+第二问是在第一问的基础上进行递推，要进行去重操作
+
+当价格一样并且下降长度一样的时候那么将其中一个归
+0
+
+递推条件也很严格 首先 要a[i]<a[j]&&dp[i]==dp[j]+1
+这样限制主要是为了找前驱 条件也是一目了然 
+
+还有一个比较重要的是第二问的初始化 g[i]=dp[i]==0 这是一个值得深思的地方
+#include<iostream>
+#include<cstring>
+using namespace std;
+long long dp[5005],g[5005],a[5005];
+#define max(a,b) a>b?a:b
+int main()
+{
+    int n,res=-1,tol=0;
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<i;j++)
+        {
+            if(a[i]<a[j])
+            dp[i]=max(dp[i],dp[j]+1);
+        }
+        res=max(res,dp[i]);
+    }
+    for(int i=0;i<n;i++)
+    {
+        g[i]=dp[i]==0;
+        for(int j=0;j<i;j++)
+        {
+            if(a[i]==a[j]&&dp[i]==dp[j])
+                g[i]=0;
+            if(a[i]<a[j]&&dp[i]==dp[j]+1)
+                g[i]+=g[j];
+        }
+    }
+    for(int i=0;i<n;i++)
+    {
+        if(dp[i]==res)
+            tol+=g[i];
+    }
+    cout<<res+1<<" "<<tol<<endl;
+    return 0;
+}
