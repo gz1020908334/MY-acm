@@ -1,0 +1,41 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+int main()
+{
+	int n,x,s[2000],i=-1;
+	cin>>n>>x;
+	cout<<n<<"=";
+	while(n!=0)
+	{
+		int k;
+		k=n%x;
+		n/=x;
+		if(k<0)
+		{
+			k-=x;
+			n++;
+		}		
+		s[++i]=k;
+	}
+	while(i>=0)
+	{
+		if(s[i]>=10)
+		{
+			cout<<char(s[i]-10+'A');
+		}	
+		else
+			cout<<s[i];
+		i--;
+	}
+	cout<<"(base"<<x<<")"<<endl;
+	return 0;
+}
+
+
+
+值得强调的是负进制的转换
+不管怎样  余数不能小于0
+当 余数小于 0 时要做以下操作
+余数 减去 进制数 并且 商执行自加
+
