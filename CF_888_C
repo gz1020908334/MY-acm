@@ -1,0 +1,37 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+#define max(a,b) a>b?a:b
+#define min(a,b) a<b?a:b
+int main()
+{
+	int a[30],b[30],n,sum=10000005,c[30];
+	memset(a,0,sizeof(a));
+	memset(b,0,sizeof(b));
+	memset(c,0,sizeof(c));
+	char s[100005];
+	cin>>s;
+	for(int i=0;i<strlen(s);i++)
+	{
+		if(c[s[i]-'a']==0)
+			b[s[i]-'a']=i-a[s[i]-'a']+1;
+		else
+			b[s[i]-'a']=max(b[s[i]-'a'],i-a[s[i]-'a']);
+		a[s[i]-'a']=i;
+		c[s[i]-'a']++;
+	}	
+	for(int i=0;i<26;i++)
+	{
+		if(c[i]>=1)
+		{
+			if(c[i]!=1)
+				b[i]=max(b[i],strlen(s)-a[i]);
+			else
+				b[i]=max(a[i]+1,strlen(s)-a[i]);
+		}
+		if(c[i]!=0)
+			sum=min(sum,b[i]);
+	}
+	cout<<sum<<endl;
+	return 0;
+}

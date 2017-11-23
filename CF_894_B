@@ -1,0 +1,52 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+#define mod 1000000007
+int main()
+{
+	long long sum=1,x,z=2,n,m,k;
+	cin>>n>>m>>k;
+	if((n+m)%2==1&&k==-1)
+	{
+		cout<<"0"<<endl;
+		return 0;
+	}
+	x=(n-1)%(mod-1)*((m-1)%(mod-1))%(mod-1);
+	while(x!=0)
+	{
+		if(x&1)
+		{
+			sum=sum*z%mod;
+		}	
+		z=z*z%mod;
+		x>>=1;
+	}
+	cout<<sum%mod<<endl;
+	return 0;
+}
+/*
+	结论题 数学题
+	最重要的用到了快速幂  然后GG了 把快速幂忘了
+	
+
+	通过大牛的博客复习了快速幂
+
+	模板如下
+	求 a^b
+	long long ppow(long long a,long long b)
+	{
+		long long ans=1,base=a;
+		while(b!=0)
+		{
+			if(b&1)				//验证是否要计算
+			{
+				ans*=base;
+			}
+			base*=base;			 //用来迭代次幂
+			b>>=1;
+		}
+		return ans;
+	}
+	采用了二分的思想  将a^b  中的b换成二进制的方式来减少计算步骤
+	
+*/
